@@ -1,9 +1,6 @@
 package com.macrun.emagazine.constant;
 
-public enum Category {
-    FASHION(0),
-    BEAUTY(1);
-
-    Category(int asInt) {
-    }
+public final class Category {
+    public static final int FASHION=0;
+    public static final int BEAUTY=1;
 }

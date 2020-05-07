@@ -1,6 +1,5 @@
 package com.macrun.emagazine.entity;
 
-import com.macrun.emagazine.constant.Category;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,15 +13,54 @@ import javax.persistence.*;
 @EqualsAndHashCode
 public class Post extends BaseEntity {
     @JoinColumn(name = "created_by")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private User createdBy;
     @Column(name = "category_id")
-    @Enumerated(EnumType.ORDINAL)
-    private Category category;
+    private Integer category;
     @Column(name = "title")
     private String title;
     @Column(name = "post_content")
     private String content;
     @Column(name = "asset_id")
-    private int assetId;
+    private Integer assetId;
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Integer getCategory() {
+        return category;
+    }
+
+    public void setCategory(Integer category) {
+        this.category = category;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Integer getAssetId() {
+        return assetId;
+    }
+
+    public void setAssetId(Integer assetId) {
+        this.assetId = assetId;
+    }
 }

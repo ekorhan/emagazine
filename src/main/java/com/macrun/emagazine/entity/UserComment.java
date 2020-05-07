@@ -13,10 +13,10 @@ import javax.persistence.*;
 @EqualsAndHashCode
 public class UserComment extends BaseEntity {
     @JoinColumn(name = "created_by")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private User createdBy;
     @JoinColumn(name = "post_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Post post;
     @Column(name = "comment_content")
     private String content;

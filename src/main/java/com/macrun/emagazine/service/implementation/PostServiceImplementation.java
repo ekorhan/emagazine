@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Date;
 
 @Service
 public class PostServiceImplementation implements PostService {
@@ -24,9 +25,10 @@ public class PostServiceImplementation implements PostService {
     }
 
     @Override
-    public PostDto setPost(PostDto post) {
+    public PostDto addPost(PostDto post) {
         Post mainPost = modelMapper.map(post, Post.class);
         mainPost = postRepository.save(mainPost);
+        post.setId(mainPost.getId());
         return modelMapper.map(mainPost, PostDto.class);
     }
 
@@ -43,5 +45,17 @@ public class PostServiceImplementation implements PostService {
         TPage<PostDto> ins = new TPage<>();
         ins.setStat(posts, Arrays.asList(postDtoTPage));
         return ins;
+    }
+
+    public PostDto updatePost(Long id, PostDto postDto) {
+        if (!postRepository.existsById(id))
+            throw new IllegalStateException("This post isn't created before, id: " + id);
+
+        Post postDb = postRepository.getOne(id);
+        postDb.setTitle(postDto.getTitle());
+        postDb.setContent(postDto.getPostContent());
+        postDb.setUpdatedAt(new Date());
+        postRepository.save(postDb);
+        return modelMapper.map(postDb, PostDto.class);
     }
 }

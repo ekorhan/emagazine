@@ -20,4 +20,28 @@ public class User extends BaseEntity {
     private String email;
     @Column(name = "password", length = 32)
     private String password;
+
+    public int getMemberType() {
+        return memberType;
+    }
+
+    public void setMemberType(int memberType) {
+        this.memberType = memberType;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
