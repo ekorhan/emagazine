@@ -34,6 +34,7 @@ public class PostServiceImplementation implements PostService {
 
     @Override
     public PostDto getById(long id) {
+        checkExist(id);
         Post post = postRepository.getOne(id);
         return modelMapper.map(post, PostDto.class);
     }
@@ -48,14 +49,25 @@ public class PostServiceImplementation implements PostService {
     }
 
     public PostDto updatePost(Long id, PostDto postDto) {
-        if (!postRepository.existsById(id))
-            throw new IllegalStateException("This post isn't created before, id: " + id);
-
+        checkExist(id);
         Post postDb = postRepository.getOne(id);
         postDb.setTitle(postDto.getTitle());
         postDb.setContent(postDto.getPostContent());
         postDb.setUpdatedAt(new Date());
         postRepository.save(postDb);
         return modelMapper.map(postDb, PostDto.class);
+    }
+
+    public PostDto deletePost(Long id) {
+        checkExist(id);
+        Post post = postRepository.getOne(id);
+        PostDto postDto = modelMapper.map(post, PostDto.class);
+        postRepository.delete(post);
+        return postDto;
+    }
+
+    private void checkExist(Long id) {
+        if (!postRepository.existsById(id))
+            throw new IllegalStateException("This post hasn't been existed");
     }
 }
