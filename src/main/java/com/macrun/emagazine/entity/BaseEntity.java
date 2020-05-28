@@ -16,11 +16,11 @@ public abstract class BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column(name = "created_at")
-    @Temporal(TemporalType.TIME)
-    private Date createdAt;
+    @Column(name = "created_at", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt = new Date();
     @Column(name = "updated_at")
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
     @Column(name = "status")
     private boolean status;
